@@ -59,12 +59,13 @@ module.exports = {
 	},
 	getAsset : function(req, res, next){
 		
-		console.log("Query Asset"+JSON.stringify(assetConMapping));
+		
 		db.executeSql(sql.queryAsset,[],
 			function(data){
 				var ConMapping = new mapping.mappingConfig();
 				var assetListObj = ConMapping.assetListObj;
 				var assetConMapping = ConMapping.assetListMapping;
+				console.log("Query Asset"+JSON.stringify(assetConMapping));
 				var returnObj = convertResponse(assetListObj,assetConMapping,data);
 				res.json(returnObj);
 				// console.log("getAsset success:"+ data);
