@@ -9,9 +9,9 @@ var auth = require('../auth/auth');
 var db = require('../db/db');
 
 
-
+// /users
 router.get('/', function(req, res, next) {
-  res.send('welcome');
+  res.send('welcome users');
 });
 
 // router.get('/login/:id', function(req, res, next) {

@@ -13,7 +13,7 @@ var app = express();
 
 var routers = require('./routes/index');
 var users = require('./routes/users');
-
+var data = require('./routes/data');
 //view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -28,8 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routers);
 app.use('/users', users);
-
-
+app.use('/data', data);
 
 app.all('*',function(req,res,next){
 	res.header("Access-Control-Allow-Origin","*");
