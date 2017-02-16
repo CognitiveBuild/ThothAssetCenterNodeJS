@@ -44,5 +44,17 @@ router.get('/team/getTeam',dbServer.getTeam, function(req,res){
 
 });
 
+router.get('/technology/getTechnology',dbServer.getTechnology, function(req,res){
+
+});
+
+router.get('/asset/getAssetsByTechnology',dbServer.getAssetsByTechnology, function(req,res){
+
+});
+
+router.get('/asset/getAssetsByIndustry',dbServer.getAssetsByIndustry, function(req,res){
+
+});
+
 
 module.exports = router;

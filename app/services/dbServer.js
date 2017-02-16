@@ -79,6 +79,12 @@ module.exports = {
 
 	},
 	getAssetByKey : function(req, res, next){
+		if(req.query.id == undefined){
+			var errorObj = {};
+			errorObj.error = "Parameter Error"
+			res.json(errorObj);
+			res.end();
+		}
 		var AssetListId = req.query.id; 
 		console.log("Query AssetList by AssetID");
 		db.executeSql(sql.queryAssetByID,[AssetListId],
@@ -200,6 +206,76 @@ module.exports = {
 			}
 		);
 	},
+
+	getTechnology : function(req, res, next){
+		
+		db.executeSql(sql.getTechnology,[],
+			function(data){
+				res.json(data);
+				res.end();
+			},
+			function(err){
+				res.send(err);
+			});
+
+	},
+
+	getAssetsByTechnology : function(req, res, next){
+		
+		if(req.query.id == undefined){
+			var errorObj = {};
+			errorObj.error = "Parameter Error"
+			res.json(errorObj);
+			res.end();
+		}
+		var technologyId = req.query.id; 
+		console.log("Query AssetList by Technology");
+		db.executeSql(sql.getAssetsByTechnology,[technologyId],
+			function(data){
+				var ConMapping = new mapping.mappingConfig();
+				var assetListObj = ConMapping.assetListObj;
+				var assetConMapping = ConMapping.assetListMapping;
+				var returnObj = convertResponse(assetListObj,assetConMapping,data);
+				console.log("Query AssetList by Technology success:"+ data);
+				res.json(returnObj);
+				res.end();
+			},
+			function(err){
+				res.send(err);
+			}
+		);
+
+	},
+
+	getAssetsByIndustry : function(req, res, next){
+		
+		
+
+		if(req.query.id == undefined){
+			var errorObj = {};
+			errorObj.error = "Parameter Error"
+			res.json(errorObj);
+			res.end();
+		}
+		var industryId = req.query.id; 
+		console.log("Query AssetList by Industry");
+		db.executeSql(sql.getAssetsByIndustry,[industryId],
+			function(data){
+				var ConMapping = new mapping.mappingConfig();
+				var assetListObj = ConMapping.assetListObj;
+				var assetConMapping = ConMapping.assetListMapping;
+				var returnObj = convertResponse(assetListObj,assetConMapping,data);
+				console.log("Query AssetList by Industry success:"+ data);
+				res.json(returnObj);
+				res.end();
+			},
+			function(err){
+				res.send(err);
+			}
+		);
+
+	},
+
 };
 
 
