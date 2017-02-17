@@ -20,5 +20,7 @@ module.exports = {
 		PROTOCOL:'TCPIP'
 	},
 
-	schema : "THOTH"
+	schema : "THOTH",
+	uploadFilesDir : "./uploadedFiles/",
+	maxUploadFileSize : 50*1024*1024
 }
