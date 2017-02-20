@@ -221,16 +221,25 @@ module.exports = {
 	},
 
 	getAssetsByTechnology : function(req, res, next){
-		
-		if(req.query.id == undefined){
+		var queryArr = [];
+		var technologyId = '%%';
+		var technologyName = '%%';
+		if(req.query.id == undefined && req.query.name == undefined){
 			var errorObj = {};
 			errorObj.error = "Parameter Error"
 			res.json(errorObj);
 			res.end();
 		}
-		var technologyId = req.query.id; 
+		if(req.query.id !== undefined){
+			technologyId = req.query.id; 
+		}
+		if(req.query.name !== undefined){
+			technologyName = req.query.name; 
+		}
+		queryArr.push(technologyId);
+		queryArr.push(technologyName);
 		console.log("Query AssetList by Technology");
-		db.executeSql(sql.getAssetsByTechnology,[technologyId],
+		db.executeSql(sql.getAssetsByTechnology,queryArr,
 			function(data){
 				var ConMapping = new mapping.mappingConfig();
 				var assetListObj = ConMapping.assetListObj;
@@ -250,16 +259,25 @@ module.exports = {
 	getAssetsByIndustry : function(req, res, next){
 		
 		
-
-		if(req.query.id == undefined){
+		var queryArr = [];
+		var industryId = '%%';
+		var industryName = '%%';
+		if(req.query.id == undefined && req.query.name == undefined){
 			var errorObj = {};
 			errorObj.error = "Parameter Error"
 			res.json(errorObj);
 			res.end();
 		}
-		var industryId = req.query.id; 
+		if(req.query.id !== undefined){
+			industryId = req.query.id; 
+		}
+		if(req.query.name !== undefined){
+			industryName = req.query.name; 
+		}
+		queryArr.push(industryId);
+		queryArr.push(industryName);
 		console.log("Query AssetList by Industry");
-		db.executeSql(sql.getAssetsByIndustry,[industryId],
+		db.executeSql(sql.getAssetsByIndustry,queryArr,
 			function(data){
 				var ConMapping = new mapping.mappingConfig();
 				var assetListObj = ConMapping.assetListObj;

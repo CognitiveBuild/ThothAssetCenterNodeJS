@@ -14,7 +14,6 @@
     "jwt-simple": "^0.5.0",
     "morgan": "^1.7.0",
     "multer": "^1.2.0",
-    "node-inspector": "^0.12.8",
     "serve-favicon": "^2.3.0",
     "jsonwebtoken": "^7.1.9",
     "express-jwt": "^5.1.0",
