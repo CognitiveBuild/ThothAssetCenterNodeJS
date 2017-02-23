@@ -34,16 +34,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(fileUpload());
 app.use(fileUpload({limits: { fileSize: config.maxUploadFileSize }}));
 
+app.use(function(req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods","GET,POST,PUT,DELETE");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
+  next();
+});
 app.use('/', routers);
 app.use('/users', users);
 app.use('/data', data);
 app.use('/files', fileUD);
 
-app.all('*',function(req,res,next){
-	res.header("Access-Control-Allow-Origin","*");
-	next();
-});
+
 
 db.connectDB(function(err,conn){
     if(err) console.log(err);

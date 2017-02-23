@@ -120,6 +120,7 @@ module.exports = {
 		
 		db.executeSql(sql.getIndustry,[],
 			function(data){
+				
 				res.json(data);
 				res.end();
 			},
