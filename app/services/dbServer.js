@@ -295,6 +295,31 @@ module.exports = {
 
 	},
 
+	putAsset : function(req, res, next){
+		var putObj = req.body;
+		if(putObj.title === undefined ){
+			res.send("put user parameter error");
+			return;
+		}
+		if(putObj.team_id === undefined ){
+			putObj.team_id = null;
+		}
+		if(putObj.industry_id === undefined ){
+			putObj.industry_id = null;
+		}
+		V
+		
+		db.executeSql(sql.insertAsset,[putObj.title,putObj.team_id,putObj.publish_date,putObj.industry_id],
+			function(data){
+				res.json(data);
+				res.end();
+			},
+			function(err){
+				res.send(err);
+			}
+		);
+	}
+
 };
 
 

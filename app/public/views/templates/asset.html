@@ -1,0 +1,48 @@
+<div>
+<h3>Asset Page</h3>
+ 
+	<div>{{ErrorInfo}}</div>
+	<div class="progress" style={{indicateProgress.indicateDisplay}}>
+		<div class="progress-bar progress-bar-striped active " role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style={{indicateProgress.width}}>
+			<span class="sr-only">45% Complete</span>
+		</div>
+	</div>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th></th>
+				<th>ASSET_ID</th>
+				<th>ASSETLIST_ID</th>
+				<th>Info</th>
+				<th>TEAM_NAME</th>
+				<th>INDUSTRY_NAME</th>
+				<th>TECHNOLOGY_NAME</th>
+				<th>MimeType</th>
+				<th>Name</th>
+				<th>ASSETLIST_DESCRIPTION</th>
+				<th>MimeURL</th>
+				<th>ASSETLIST_SERVICEURL</th>
+			</tr>
+		</thead>
+		<tbody ng-repeat="item in items | orderBy : 'ASSET_ID' : true">
+			<tr>
+				<!-- <td ng-click="editAsset({{item.ASSET_ID}})">Edit</td> -->
+				<td>
+					<div ng-click="editAsset(item.ASSET_ID)"> EDIT</div>
+				</td>
+				<td>{{item.ASSET_ID}}</td>
+				<td>{{item.ASSETLIST_ID}}</td>
+				<td>{{item.Info}}</td>
+				<td>{{item.TEAM_NAME}}</td>
+				<td>{{item.INDUSTRY_NAME}}</td>
+				<td>{{item.TECHNOLOGY_NAME}}</td>
+				<td>{{item.MimeType}}</td>
+				<td>{{item.Name}}</td>
+				<td>{{item.ASSETLIST_DESCRIPTION}}</td>
+				<td>{{item.MimeURL}}</td>
+				<td>{{item.ASSETLIST_SERVICEURL}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>

@@ -16,9 +16,15 @@ var routers = require('./routes/index');
 var users = require('./routes/users');
 var data = require('./routes/data');
 var fileUD = require('./routes/files');
-//view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+var ejs = require('ejs');
+// //view engine setup
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
+// view engine setup
+app.set('views', path.join(__dirname, 'public/views'));
+app.engine('html',ejs.__express);
+app.set('view engine', 'html');
+
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -53,19 +59,6 @@ db.connectDB(function(err,conn){
     console.log("connect:"+JSON.stringify(conn));
   });
 
-// var server = app.listen(3000, function () {
 
-//   var host = server.address().address;
-//   var port = server.address().port;
-//   // app.set('jwtTokenSecret','Secret');
-//   console.log("Application: http://%s:%s", host, port)
-//   console.log(app.get('jwtTokenSecret'));
-//   console.log("db.isConnected:"+db.isConnected());
-//   db.connectDB(function(err,conn){
-//   	if(err) console.log(err);
-//   	console.log("connect:"+JSON.stringify(conn));
-//   });
-
-// });
 
 module.exports = app;

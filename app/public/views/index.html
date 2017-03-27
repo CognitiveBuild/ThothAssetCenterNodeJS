@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Thoth Application</title>
+            <base href="/">
+            <link rel="stylesheet" href="css/style.css" />
+            
+            <script src="lib/jquery/jquery.min.js"></script>
+            <!-- angular -->
+            <script src="lib/angular/angular.js"></script>
+            <script src="lib/angular/angular-route.js"></script>
+           
+            <link href="lib/bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+            <link href="lib/bootstrap/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">
+            <script src="lib/bootstrap/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+
+            <script src="js/app.js"></script>
+            <script src="js/controller.js"></script>
+            <script src="js/services.js"></script>
+            <script src="js/filter.js"></script>
+            <script src="js/config.js"></script>
+            
+            
+
+            
+
+            
+        </head>
+
+
+        <body ng-app='thoth' ng-controller='MainCtrl' class="bodyStyles">
+            <h1>Thoth Asset Center</h1>
+            <div class="row">
+                <div id='nav' class="col-md-2 tablebackgroundimg">
+                    <ul class="dropdown">
+                        <i ng-click='clickFileUpload()' class="">
+                            <span class="glyphicon glyphicon-upload" aria-hidden="true">  Upload File</span>
+                        </i>
+                        <i ng-click='clickServices()'>
+                            <span class="glyphicon glyphicon-th-list" aria-hidden="true">  Click Services</span>
+                        </i>
+                        <i ng-click='queryAsset()'>
+                            <span class="glyphicon glyphicon-folder-open" aria-hidden="true">  Show Assets</span>
+                        </i>
+
+                    </ul>
+                </div>
+                <div ng-view class="col-md-10"></div>
+            </div>
+        </body>
+        
+        <!-- <body ng-app='thoth' ng-controller='MainCtrl' style='background-image: url("/images/TranscodedWallpaper.jpg");'>
+            <div id='nav'>
+                <h1>Thoth Asset Center</h1>
+                <ul>
+                    <li ng-click='clickFileUpload()'>
+                        Upload file
+                    </li>
+                    <li ng-click='clickServices()'>
+                        
+                        Click Services
+                    </li>
+                    <li ng-click='queryAsset()'>
+                        Show Assets
+                    </li>
+
+                </ul>
+            </div>
+            <div ng-view></div>
+        </body> -->
+       
+
+
+
+</html>

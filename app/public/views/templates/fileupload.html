@@ -1,0 +1,26 @@
+<!-- <div>
+ 	Asset upload page
+ 	<div>{{serverObj.url}}</div>
+ 	<form method="post" enctype="multipart/form-data" action={{serverObj.url}}>
+	  <input type="text" name="username">
+	  <input type="password" name="password">
+	  <input type="file" name="uploadFile">
+	  <input type="submit">
+	</form>
+<div> -->
+
+
+
+<div>
+ 	Asset Upload Page
+ 	<div>{{serverObj.url}}</div>
+ 	<form ng-submit="processForm()">
+	  <input type="text" name="username" ng-model="formData.name">
+	  <input type="password" name="password" ng-model="formData.password">
+	  <input type="file" name="uploadFile" ng-model="formData.Files">
+	  <input type="submit">
+	</form>
+	<div>{{errorName}}</div>
+	<div>{{errorSuperhero}}</div>
+	<div>{{message}}</div>
+<div>

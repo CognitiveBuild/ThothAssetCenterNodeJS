@@ -1,6 +1,9 @@
-
+var auth = require('../auth/auth');
+var db = require('../db/db');
+var sql = require('../db/sql');
 var config = require('../config');
 var fs = require('fs');
+var dbServer = require('./dbServer');
 
 var fileExists = function(file,fileExists,fileNotExists){
 	console.log("check file exists: file name is :"+file);
@@ -51,6 +54,86 @@ var genFileName = function(filedir,filename,cb){
 	checkNewFile();
 };
 
+var insertAssetData = function(){
+
+}
+
+var getCurrentTimeStamp = function (){
+        var datetime = new Date();
+         var year = datetime.getFullYear();
+         var month = ("00"+(datetime.getMonth() + 1)).substr(-2);
+         var date = ("00"+(datetime.getDate() + 1)).substr(-2);
+         var hour = ("00"+(datetime.getHours() + 1)).substr(-2);
+         var minute = ("00"+(datetime.getMinutes() + 1)).substr(-2);
+         var second = ("00"+(datetime.getSeconds() + 1)).substr(-2);
+         var mseconds = datetime.getMilliseconds();
+         return year + "-" + month + "-" + date+"-"+hour+"."+minute+"."+second+"."+mseconds;
+        
+};
+
+var updataAssetInfo = function(obj, cb){
+	
+	var Asset_publish_date = getCurrentTimeStamp();
+
+	var insertAsset = function(cbList){
+		db.executeSql(sql.insertAsset,[obj.Asset_title,obj.Asset_team_id,Asset_publish_date,obj.Asset_industry_id],
+			function(data){
+				// cbList("File upload success",data);
+				cbList();
+			},
+			function(err){
+				cb("File upload failed",err);
+			}
+		);
+	};
+	
+
+	var insertAssetList = function(){
+		var Asset_asset_id = "";
+		var executeInsert = function(){
+			db.executeSql(sql.insertAssetList,[Asset_asset_id,obj.AssetList_assettype_id,obj.AssetList_name,obj.AssetList_description,obj.AssetList_url,obj.AssetList_serviceurl],
+					function(data){
+						cb("File upload success",data);
+					},
+					function(err){
+						cb("File upload failed",err);
+					}
+				);
+		}
+
+		if(obj.Asset_asset_id == undefined || typeof(obj.Asset_asset_id) != "number"){
+
+			db.executeSql(sql.selectMaxAssetId,[],function(data){
+
+				Asset_asset_id = data[0].MAX_ASSET_ID; 
+				executeInsert();
+			},function(err){
+				cb("File upload failed",err);
+			});
+		}else{
+			Asset_asset_id = obj.Asset_asset_id;
+			executeInsert();
+		}
+
+
+		
+	}
+
+
+
+	insertAsset(insertAssetList);
+
+
+	// db.executeSql(sql.insertAsset,[obj.Asset_title,obj.Asset_team_id,Asset_publish_date,obj.Asset_industry_id],
+	// 		function(data){
+	// 			cb("File upload success",data);
+	// 		},
+	// 		function(err){
+	// 			cb("File upload failed",err);
+	// 		}
+	// );
+}
+
 
 
 
@@ -72,6 +155,7 @@ module.exports = {
 			return;
 		}
 
+		
 
 		uploadFile = req.files.uploadFile;
 		fileName = req.files.uploadFile.name;
@@ -81,10 +165,17 @@ module.exports = {
 			uploadFile.mv(newFileName,function(err){
 				if(err){
 					console.log("upload failed:"+ err);
-					res.status(500).send(err);
+					res.send("File upload failed"+":"+err);	
 				}else{
 					console.log("upload success!");
-					res.send('File uploaded!');
+					var InfoObj = JSON.parse(req.body.InfoObj); 
+					InfoObj.AssetList_url = newFileName; 
+					InfoObj.AssetList_serviceurl = newFileName; 
+					updataAssetInfo(InfoObj, function(mes,data){
+						res.send(mes+":"+data);	
+					});
+					
+					// res.send('File uploaded!');
 				}
 			});
 		}
